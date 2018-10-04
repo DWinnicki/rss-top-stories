@@ -1,8 +1,6 @@
 package com.winnicki.rsstopstories.ui.main
 
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
@@ -14,6 +12,7 @@ import com.winnicki.rsstopstories.R
 import com.winnicki.rsstopstories.db.NewsStoriesDatabase
 import com.winnicki.rsstopstories.db.entity.NewsStory
 import com.winnicki.rsstopstories.ui.web.WebActivity
+import com.winnicki.rsstopstories.utils.NetworkHelper
 import kotlinx.android.synthetic.main.main_fragment.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -47,7 +46,7 @@ class MainFragment : Fragment() {
 
             doAsync {
                 NewsStoriesDatabase.getInstance(context)?.let { db ->
-                    val data = if (isNetworkAvailable()) {
+                    val data = if (NetworkHelper().isNetworkAvailable(context)) {
                         viewModel.getAllNewsStories(db)
                     } else {
                         viewModel.getAllNewsStoriesOffline(db)
@@ -62,12 +61,6 @@ class MainFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private fun isNetworkAvailable(): Boolean {
-        val activeNetworkInfo = (context?.getSystemService(Context.CONNECTIVITY_SERVICE)
-                as ConnectivityManager).activeNetworkInfo
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected
     }
 
     companion object {

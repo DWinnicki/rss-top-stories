@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebSettings
 import com.winnicki.rsstopstories.R
+import com.winnicki.rsstopstories.ext.snack
+import com.winnicki.rsstopstories.utils.NetworkHelper
 import kotlinx.android.synthetic.main.web_fragment.*
 
 class WebFragment : Fragment() {
@@ -29,6 +31,9 @@ class WebFragment : Fragment() {
         val link = arguments?.getString(NEWS_STORY_EXTRA)
         webView.settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
         webView.loadUrl(link)
+        if (!NetworkHelper().isNetworkAvailable(context)) {
+            view?.snack("No Internet Connection")
+        }
     }
 
     companion object {
