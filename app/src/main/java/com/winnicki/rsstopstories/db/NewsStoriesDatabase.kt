@@ -1,11 +1,11 @@
-package com.winnicki.rsstopstories.repository.db
+package com.winnicki.rsstopstories.db
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
-import com.winnicki.rsstopstories.repository.db.dao.NewsStoryDataDao
-import com.winnicki.rsstopstories.repository.db.entity.NewsStoryData
+import com.winnicki.rsstopstories.db.dao.NewsStoryDataDao
+import com.winnicki.rsstopstories.db.entity.NewsStory
 
 /**
  * Project: rss-top-stories
@@ -13,7 +13,7 @@ import com.winnicki.rsstopstories.repository.db.entity.NewsStoryData
  * By: David
  */
 
-@Database(entities = [NewsStoryData::class], version = 1, exportSchema = false)
+@Database(entities = [NewsStory::class], version = 1, exportSchema = false)
 abstract class NewsStoriesDatabase : RoomDatabase() {
 
     abstract fun newsStoryDataDao(): NewsStoryDataDao
@@ -25,7 +25,7 @@ abstract class NewsStoriesDatabase : RoomDatabase() {
             if (INSTANCE == null) {
                 synchronized(NewsStoriesDatabase::class) {
                     INSTANCE = Room.databaseBuilder(context.applicationContext,
-                            NewsStoriesDatabase::class.java, "newsStories.db")
+                            NewsStoriesDatabase::class.java, "rssTopStories.db")
                             .build()
                 }
             }

@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.winnicki.rsstopstories.R
-import com.winnicki.rsstopstories.repository.db.entity.NewsStoryData
+import com.winnicki.rsstopstories.db.entity.NewsStory
 import kotlinx.android.synthetic.main.news_story_list_row.view.*
 
 /**
@@ -17,11 +17,11 @@ import kotlinx.android.synthetic.main.news_story_list_row.view.*
  * By: David
  */
 
-class NewsStoryAdapter(private val newsStoryList: List<NewsStoryData>,
+class NewsStoryAdapter(private val newsStoryList: List<NewsStory>,
                        private val listener: OnItemClickListener) : RecyclerView.Adapter<NewsStoryAdapter.NewsStoryViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClick(item: NewsStoryData)
+        fun onItemClick(item: NewsStory)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsStoryAdapter.NewsStoryViewHolder {
@@ -44,7 +44,7 @@ class NewsStoryAdapter(private val newsStoryList: List<NewsStoryData>,
         var author: TextView = view.textViewAuthor
         var image: ImageView = view.imageViewArtwork
 
-        fun bind(item: NewsStoryData, listener: OnItemClickListener) {
+        fun bind(item: NewsStory, listener: OnItemClickListener) {
             title.text = item.title
             pubDate.text = item.pubDate
             author.text = item.author

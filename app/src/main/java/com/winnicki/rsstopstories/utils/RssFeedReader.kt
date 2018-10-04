@@ -1,8 +1,8 @@
 package com.winnicki.rsstopstories.utils
 
 import android.util.Xml
-import com.winnicki.rsstopstories.repository.db.dao.NewsStoryDataDao
-import com.winnicki.rsstopstories.repository.db.entity.NewsStoryData
+import com.winnicki.rsstopstories.db.dao.NewsStoryDataDao
+import com.winnicki.rsstopstories.db.entity.NewsStory
 import org.xmlpull.v1.XmlPullParser
 import java.io.ByteArrayInputStream
 import java.io.IOException
@@ -17,21 +17,21 @@ import java.net.URL
 
 class RssFeedProvider {
 
-    fun parseUrl(url: String, dao: NewsStoryDataDao?): List<NewsStoryData> {
-        val list = ArrayList<NewsStoryData>()
+    fun parseUrl(url: String, dao: NewsStoryDataDao?): List<NewsStory> {
+        val list = ArrayList<NewsStory>()
         val parser = Xml.newPullParser()
         var stream: InputStream? = null
         try {
             stream = URL(url).openConnection().getInputStream()
             parser.setInput(stream, null)
             var eventType = parser.eventType
-            var item: NewsStoryData? = null
+            var item: NewsStory? = null
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 val element = parser.name
                 when (eventType) {
                     XmlPullParser.START_TAG -> {
                         if (element.equals(ITEM, ignoreCase = true)) {
-                            item = NewsStoryData()
+                            item = NewsStory()
                         } else if (item != null) {
                             when {
                                 element.equals(GUID, ignoreCase = true) -> item.id = parser.nextText().trim()

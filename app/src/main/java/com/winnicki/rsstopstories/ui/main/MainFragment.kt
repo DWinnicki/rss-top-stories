@@ -11,8 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.winnicki.rsstopstories.R
-import com.winnicki.rsstopstories.repository.db.NewsStoriesDatabase
-import com.winnicki.rsstopstories.repository.db.entity.NewsStoryData
+import com.winnicki.rsstopstories.db.NewsStoriesDatabase
+import com.winnicki.rsstopstories.db.entity.NewsStory
 import com.winnicki.rsstopstories.ui.web.WebActivity
 import com.winnicki.rsstopstories.utils.RssFeedProvider
 import kotlinx.android.synthetic.main.main_fragment.*
@@ -51,7 +51,7 @@ class MainFragment : Fragment() {
                 }
                 uiThread {
                     adapter = NewsStoryAdapter(data, object : NewsStoryAdapter.OnItemClickListener {
-                        override fun onItemClick(item: NewsStoryData) {
+                        override fun onItemClick(item: NewsStory) {
                             startActivity(WebActivity.getStartIntent(context, item.link))
                         }
                     })

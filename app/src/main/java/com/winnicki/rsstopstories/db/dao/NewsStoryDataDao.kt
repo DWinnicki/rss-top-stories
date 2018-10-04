@@ -1,10 +1,10 @@
-package com.winnicki.rsstopstories.repository.db.dao
+package com.winnicki.rsstopstories.db.dao
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import android.arch.persistence.room.Query
-import com.winnicki.rsstopstories.repository.db.entity.NewsStoryData
+import com.winnicki.rsstopstories.db.entity.NewsStory
 
 /**
  * Project: rss-top-stories
@@ -16,11 +16,8 @@ import com.winnicki.rsstopstories.repository.db.entity.NewsStoryData
 interface NewsStoryDataDao {
 
     @Query("SELECT * from newsStoryData")
-    fun getAll(): List<NewsStoryData>
+    fun getAll(): List<NewsStory>
 
     @Insert(onConflict = REPLACE)
-    fun insert(newsStory: NewsStoryData)
-
-    @Query("DELETE from newsStoryData")
-    fun deleteAll()
+    fun insert(newsStory: NewsStory)
 }
