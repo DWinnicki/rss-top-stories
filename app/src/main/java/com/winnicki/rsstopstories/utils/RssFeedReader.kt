@@ -17,7 +17,7 @@ import java.net.URL
 
 class RssFeedProvider {
 
-    fun parseUrl(url: String, db: NewsStoriesDatabase?): List<NewsStory> {
+    fun parseUrl(url: String, db: NewsStoriesDatabase): List<NewsStory> {
         val list = ArrayList<NewsStory>()
         val parser = Xml.newPullParser()
         var stream: InputStream? = null
@@ -46,7 +46,7 @@ class RssFeedProvider {
                     XmlPullParser.END_TAG -> {
                         if (element.equals(ITEM, ignoreCase = true) && item != null) {
                             list.add(item)
-                            db?.newsStoryDao()?.insert(item)
+                            db.newsStoryDao().insert(item)
                         }
                     }
                 }
