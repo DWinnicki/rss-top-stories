@@ -40,6 +40,7 @@ class MainFragment : Fragment() {
 
     private fun initRecyclerView() {
         recyclerViewNewsStories.apply {
+            adapter = NewsStoryAdapter()
             val layoutManager = LinearLayoutManager(context)
             setLayoutManager(layoutManager)
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))

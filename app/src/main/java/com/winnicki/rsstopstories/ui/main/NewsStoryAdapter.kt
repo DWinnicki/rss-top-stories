@@ -19,7 +19,9 @@ import kotlinx.android.synthetic.main.news_story_list_row.view.*
  */
 
 class NewsStoryAdapter(private val newsStoryList: List<NewsStory>,
-                       private val listener: OnItemClickListener) : RecyclerView.Adapter<NewsStoryAdapter.NewsStoryViewHolder>() {
+                       private val listener: OnItemClickListener?) : RecyclerView.Adapter<NewsStoryAdapter.NewsStoryViewHolder>() {
+
+    constructor() : this(emptyList(), null)
 
     interface OnItemClickListener {
         fun onItemClick(item: NewsStory)
@@ -45,7 +47,7 @@ class NewsStoryAdapter(private val newsStoryList: List<NewsStory>,
         private val author: TextView = view.textViewAuthor
         private val image: ImageView = view.imageViewArtwork
 
-        fun bind(item: NewsStory, listener: OnItemClickListener) {
+        fun bind(item: NewsStory, listener: OnItemClickListener?) {
             title.text = item.title
             pubDate.text = item.pubDate
             author.text = item.author
@@ -56,7 +58,7 @@ class NewsStoryAdapter(private val newsStoryList: List<NewsStory>,
                     .into(image)
 
             itemView.setOnClickListener {
-                listener.onItemClick(item)
+                listener?.onItemClick(item)
             }
         }
     }
