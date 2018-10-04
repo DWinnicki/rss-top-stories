@@ -4,7 +4,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.winnicki.rsstopstories.R
 import com.winnicki.rsstopstories.repository.model.entity.NewsStory
 import kotlinx.android.synthetic.main.news_story_list_row.view.*
@@ -15,18 +17,11 @@ import kotlinx.android.synthetic.main.news_story_list_row.view.*
  * By: David
  */
 
-class NewsStoryAdapter(private val newsStoryList: List<NewsStory>) : RecyclerView.Adapter<NewsStoryAdapter.NewsStoryViewHolder>() {
+class NewsStoryAdapter(private val newsStoryList: List<NewsStory>,
+                       private val listener: OnItemClickListener) : RecyclerView.Adapter<NewsStoryAdapter.NewsStoryViewHolder>() {
 
-    class NewsStoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var title: TextView? = null
-        var pubDate: TextView? = null
-        var author: TextView? = null
-
-        init {
-            title = view.textViewTitle
-            pubDate = view.textViewPubDate
-            author = view.textViewAuthor
-        }
+    interface OnItemClickListener {
+        fun onItemClick(item: NewsStory)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsStoryAdapter.NewsStoryViewHolder {
@@ -40,9 +35,27 @@ class NewsStoryAdapter(private val newsStoryList: List<NewsStory>) : RecyclerVie
     }
 
     override fun onBindViewHolder(holder: NewsStoryAdapter.NewsStoryViewHolder, position: Int) {
-        val newsStory = newsStoryList[position]
-        holder.title?.text = newsStory.title
-        holder.pubDate?.text = newsStory.pubDate
-        holder.author?.text = newsStory.author
+        holder.bind(newsStoryList[position], listener)
+    }
+
+    class NewsStoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        var title: TextView = view.textViewTitle
+        var pubDate: TextView = view.textViewPubDate
+        var author: TextView = view.textViewAuthor
+        var image: ImageView = view.imageViewArtwork
+
+        fun bind(item: NewsStory, listener: OnItemClickListener) {
+            title.text = item.title
+            pubDate.text = item.pubDate
+            author.text = item.author
+
+            Glide.with(itemView)
+                    .load(item.imageUrl)
+                    .into(image)
+
+            itemView.setOnClickListener {
+                listener.onItemClick(item)
+            }
+        }
     }
 }

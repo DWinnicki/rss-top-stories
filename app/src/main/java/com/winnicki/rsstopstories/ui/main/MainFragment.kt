@@ -9,14 +9,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.winnicki.rsstopstories.R
+import com.winnicki.rsstopstories.repository.model.entity.NewsStory
+import com.winnicki.rsstopstories.ui.web.WebActivity
+import com.winnicki.rsstopstories.utils.RssFeedProvider
 import kotlinx.android.synthetic.main.main_fragment.*
-
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 class MainFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = MainFragment()
-    }
 
     private lateinit var viewModel: MainViewModel
 
@@ -28,16 +28,31 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-
-        createRecyclerView()
+        initRecyclerView()
     }
 
-    private fun createRecyclerView() {
+    private fun initRecyclerView() {
         recyclerViewNewsStories.apply {
             val layoutManager = LinearLayoutManager(context)
             setLayoutManager(layoutManager)
             itemAnimator = DefaultItemAnimator()
-            adapter = NewsStoryAdapter(viewModel.getNewsStories())
+
+            doAsync {
+                val data = RssFeedProvider().parseUrl(RSS_FEED_URL)
+                uiThread {
+                    adapter = NewsStoryAdapter(data, object : NewsStoryAdapter.OnItemClickListener {
+                        override fun onItemClick(item: NewsStory) {
+                            startActivity(WebActivity.getStartIntent(context, item.link))
+                        }
+                    })
+                }
+            }
         }
+    }
+
+    companion object {
+        const val RSS_FEED_URL = "https://www.cbc.ca/cmlink/rss-topstories"
+
+        fun newInstance() = MainFragment()
     }
 }

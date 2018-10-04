@@ -1,8 +1,8 @@
-package com.winnicki.rsstopstories
+package com.winnicki.rsstopstories.ui.main
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.winnicki.rsstopstories.ui.main.MainFragment
+import android.support.v7.app.AppCompatActivity
+import com.winnicki.rsstopstories.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,5 +15,4 @@ class MainActivity : AppCompatActivity() {
                     .commitNow()
         }
     }
-
 }
