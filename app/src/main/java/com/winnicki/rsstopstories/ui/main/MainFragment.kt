@@ -45,9 +45,9 @@ class MainFragment : Fragment() {
 
             doAsync {
                 val data = if (isNetworkAvailable()) {
-                    RssFeedProvider().parseUrl(RSS_FEED_URL, db?.newsStoryDataDao())
+                    RssFeedProvider().parseUrl(RSS_FEED_URL, db?.newsStoryDao())
                 } else {
-                    db?.newsStoryDataDao()?.getAll() ?: emptyList()
+                    db?.newsStoryDao()?.getAll() ?: emptyList()
                 }
                 uiThread {
                     adapter = NewsStoryAdapter(data, object : NewsStoryAdapter.OnItemClickListener {

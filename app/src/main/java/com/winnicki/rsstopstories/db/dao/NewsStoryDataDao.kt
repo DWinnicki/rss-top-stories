@@ -13,7 +13,7 @@ import com.winnicki.rsstopstories.db.entity.NewsStory
  */
 
 @Dao
-interface NewsStoryDataDao {
+interface NewsStoryDao {
 
     @Query("SELECT * from newsStoryData")
     fun getAll(): List<NewsStory>

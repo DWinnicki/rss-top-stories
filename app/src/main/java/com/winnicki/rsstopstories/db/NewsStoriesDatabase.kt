@@ -4,7 +4,7 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
-import com.winnicki.rsstopstories.db.dao.NewsStoryDataDao
+import com.winnicki.rsstopstories.db.dao.NewsStoryDao
 import com.winnicki.rsstopstories.db.entity.NewsStory
 
 /**
@@ -16,7 +16,7 @@ import com.winnicki.rsstopstories.db.entity.NewsStory
 @Database(entities = [NewsStory::class], version = 1, exportSchema = false)
 abstract class NewsStoriesDatabase : RoomDatabase() {
 
-    abstract fun newsStoryDataDao(): NewsStoryDataDao
+    abstract fun newsStoryDao(): NewsStoryDao
 
     companion object {
         private var INSTANCE: NewsStoriesDatabase? = null
