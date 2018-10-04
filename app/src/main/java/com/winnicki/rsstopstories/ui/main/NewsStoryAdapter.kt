@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.winnicki.rsstopstories.R
 import com.winnicki.rsstopstories.db.entity.NewsStory
 import kotlinx.android.synthetic.main.news_story_list_row.view.*
@@ -39,10 +40,10 @@ class NewsStoryAdapter(private val newsStoryList: List<NewsStory>,
     }
 
     class NewsStoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var title: TextView = view.textViewTitle
-        var pubDate: TextView = view.textViewPubDate
-        var author: TextView = view.textViewAuthor
-        var image: ImageView = view.imageViewArtwork
+        private val title: TextView = view.textViewTitle
+        private val pubDate: TextView = view.textViewPubDate
+        private val author: TextView = view.textViewAuthor
+        private val image: ImageView = view.imageViewArtwork
 
         fun bind(item: NewsStory, listener: OnItemClickListener) {
             title.text = item.title
@@ -51,6 +52,7 @@ class NewsStoryAdapter(private val newsStoryList: List<NewsStory>,
 
             Glide.with(itemView)
                     .load(item.imageUrl)
+                    .apply(RequestOptions().placeholder(R.drawable.placeholder))
                     .into(image)
 
             itemView.setOnClickListener {
