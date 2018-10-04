@@ -11,13 +11,17 @@ import android.arch.persistence.room.PrimaryKey
  * By: David
  */
 
-@Entity(tableName = "newsStoryData")
+@Entity(tableName = NewsStory.TABLE_NAME)
 data class NewsStory(@PrimaryKey(autoGenerate = false) var id: String,
                      @ColumnInfo(name = "title") var title: String,
-                     @ColumnInfo(name = "pubDate") var pubDate: String,
+                     @ColumnInfo(name = "pub_date") var pubDate: String,
                      @ColumnInfo(name = "author") var author: String,
                      @ColumnInfo(name = "link") var link: String,
-                     @ColumnInfo(name = "imageUrl") var imageUrl: String?) {
+                     @ColumnInfo(name = "image_url") var imageUrl: String?) {
     @Ignore
     constructor() : this("", "", "", "", "", "")
+
+    companion object {
+        const val TABLE_NAME = "news_story_table"
+    }
 }

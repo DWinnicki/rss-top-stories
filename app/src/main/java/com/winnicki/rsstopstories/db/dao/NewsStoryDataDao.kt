@@ -15,9 +15,12 @@ import com.winnicki.rsstopstories.db.entity.NewsStory
 @Dao
 interface NewsStoryDao {
 
-    @Query("SELECT * from newsStoryData")
+    @Query("SELECT * FROM ${NewsStory.TABLE_NAME}")
     fun getAll(): List<NewsStory>
 
     @Insert(onConflict = REPLACE)
     fun insert(newsStory: NewsStory)
+
+    @Query("DELETE FROM ${NewsStory.TABLE_NAME}")
+    fun deleteAll()
 }
