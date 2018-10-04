@@ -2,12 +2,15 @@ package com.winnicki.rsstopstories.ui.main
 
 import android.arch.lifecycle.ViewModel
 import com.winnicki.rsstopstories.db.NewsStoriesDatabase
+import com.winnicki.rsstopstories.db.entity.NewsStory
 import com.winnicki.rsstopstories.utils.RssFeedProvider
 
 class MainViewModel : ViewModel() {
 
-    fun getAllNewsStories(db: NewsStoriesDatabase) =
-            RssFeedProvider().parseUrl(RSS_FEED_URL, db)
+    fun getAllNewsStories(db: NewsStoriesDatabase): List<NewsStory> {
+        db.newsStoryDao().deleteAll()
+        return RssFeedProvider().parseUrl(RSS_FEED_URL, db)
+    }
 
     fun getAllNewsStoriesOffline(db: NewsStoriesDatabase) =
             db.newsStoryDao().getAll()
