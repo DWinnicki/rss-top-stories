@@ -6,7 +6,10 @@ package com.winnicki.rsstopstories.repository.model.entity
  * By: David
  */
 
-data class NewsStory(val title: String,
-                     val pubDate: String,
-                     val author: String,
-                     val imageUrl: String)
+data class NewsStory(var title: String,
+                     var pubDate: String,
+                     var author: String,
+                     var link: String,
+                     var imageUrl: String?) {
+    constructor() : this("", "", "", "", "")
+}
