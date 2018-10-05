@@ -29,6 +29,7 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewModel.init(context)
         initRecyclerView()
     }
 
@@ -45,14 +46,14 @@ class MainFragment : Fragment() {
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
 
             doAsync {
-                NewsStoriesDatabase.getInstance(context)?.let { db ->
-                    val data = if (NetworkHelper().isNetworkAvailable(context)) {
-                        viewModel.getAllNewsStories(db)
-                    } else {
-                        viewModel.getAllNewsStoriesOffline(db)
-                    }
-                    uiThread {
-                        adapter = NewsStoryAdapter(data, object : NewsStoryAdapter.OnItemClickListener {
+                val newsStories = if (NetworkHelper().isNetworkAvailable(context)) {
+                    viewModel.getAllNewsStories()
+                } else {
+                    viewModel.getAllNewsStoriesOffline()
+                }
+                uiThread {
+                    newsStories?.let { list ->
+                        adapter = NewsStoryAdapter(list, object : NewsStoryAdapter.OnItemClickListener {
                             override fun onItemClick(item: NewsStory) {
                                 startActivity(WebActivity.getStartIntent(context, item.link))
                             }

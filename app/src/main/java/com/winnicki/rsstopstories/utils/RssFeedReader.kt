@@ -1,7 +1,7 @@
 package com.winnicki.rsstopstories.utils
 
 import android.util.Xml
-import com.winnicki.rsstopstories.db.NewsStoriesDatabase
+import com.winnicki.rsstopstories.db.dao.NewsStoryDao
 import com.winnicki.rsstopstories.db.entity.NewsStory
 import org.xmlpull.v1.XmlPullParser
 import java.io.ByteArrayInputStream
@@ -17,7 +17,7 @@ import java.net.URL
 
 class RssFeedProvider {
 
-    fun parseUrl(url: String, db: NewsStoriesDatabase): List<NewsStory> {
+    fun parseUrl(url: String, newsStoryDao: NewsStoryDao?): List<NewsStory> {
         val list = ArrayList<NewsStory>()
         val parser = Xml.newPullParser()
         var stream: InputStream? = null
@@ -46,7 +46,7 @@ class RssFeedProvider {
                     XmlPullParser.END_TAG -> {
                         if (element.equals(ITEM, ignoreCase = true) && item != null) {
                             list.add(item)
-                            db.newsStoryDao().insert(item)
+                            newsStoryDao?.insert(item)
                         }
                     }
                 }

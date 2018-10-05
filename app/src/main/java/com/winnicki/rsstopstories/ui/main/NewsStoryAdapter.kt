@@ -1,5 +1,6 @@
 package com.winnicki.rsstopstories.ui.main
 
+import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +40,12 @@ class NewsStoryAdapter(private val newsStoryList: List<NewsStory>,
 
     override fun onBindViewHolder(holder: NewsStoryAdapter.NewsStoryViewHolder, position: Int) {
         holder.bind(newsStoryList[position], listener)
+
+        if (position % 2 == 1) {
+            holder.itemView.setBackgroundColor(Color.WHITE)
+        } else {
+            holder.itemView.setBackgroundColor(Color.parseColor("#FFFAF8FD"))
+        }
     }
 
     class NewsStoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {

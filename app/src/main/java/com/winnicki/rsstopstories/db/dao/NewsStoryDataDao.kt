@@ -6,12 +6,6 @@ import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import android.arch.persistence.room.Query
 import com.winnicki.rsstopstories.db.entity.NewsStory
 
-/**
- * Project: rss-top-stories
- * Date: October 04, 2018
- * By: David
- */
-
 @Dao
 interface NewsStoryDao {
 
