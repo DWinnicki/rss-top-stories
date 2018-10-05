@@ -7,12 +7,6 @@ import android.content.Context
 import com.winnicki.rsstopstories.db.dao.NewsStoryDao
 import com.winnicki.rsstopstories.db.entity.NewsStory
 
-/**
- * Project: rss-top-stories
- * Date: October 03, 2018
- * By: David
- */
-
 @Database(entities = [NewsStory::class], version = 1, exportSchema = false)
 abstract class NewsStoriesDatabase : RoomDatabase() {
 

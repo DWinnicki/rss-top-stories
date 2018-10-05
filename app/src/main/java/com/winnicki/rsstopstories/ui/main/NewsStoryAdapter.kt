@@ -13,12 +13,6 @@ import com.winnicki.rsstopstories.R
 import com.winnicki.rsstopstories.db.entity.NewsStory
 import kotlinx.android.synthetic.main.news_story_list_row.view.*
 
-/**
- * Project: rss-top-stories
- * Date: October 03, 2018
- * By: David
- */
-
 class NewsStoryAdapter(private val newsStoryList: List<NewsStory>,
                        private val listener: OnItemClickListener?) : RecyclerView.Adapter<NewsStoryAdapter.NewsStoryViewHolder>() {
 

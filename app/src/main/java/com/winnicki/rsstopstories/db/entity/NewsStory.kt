@@ -5,12 +5,6 @@ import android.arch.persistence.room.Entity
 import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
 
-/**
- * Project: rss-top-stories
- * Date: October 03, 2018
- * By: David
- */
-
 @Entity(tableName = NewsStory.TABLE_NAME)
 data class NewsStory(@PrimaryKey(autoGenerate = false) var id: String,
                      @ColumnInfo(name = "title") var title: String,

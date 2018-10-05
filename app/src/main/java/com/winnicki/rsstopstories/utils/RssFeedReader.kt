@@ -9,12 +9,6 @@ import java.io.IOException
 import java.io.InputStream
 import java.net.URL
 
-/**
- * Project: rss-top-stories
- * Date: October 03, 2018
- * By: David
- */
-
 class RssFeedProvider {
 
     fun parseUrl(url: String, newsStoryDao: NewsStoryDao?): List<NewsStory> {
